@@ -94,3 +94,6 @@ class TestParentNode(unittest.TestCase):
             parent_node.to_html()
 
         self.assertEqual(str(cm.exception), "ParentNode must have a tag; ParentNode must have children", "value error was not properly raised for missing tag and children")
+
+if __name__ == "__main__":
+    unittest.main()
