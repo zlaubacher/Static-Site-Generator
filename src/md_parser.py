@@ -107,5 +107,15 @@ def text_to_textnodes(text):
     list_in_progress = split_nodes_delimiter(list_in_progress, "`", TextType.CODE)
     list_in_progress = split_nodes_delimiter(list_in_progress, "**", TextType.BOLD)
     list_in_progress = split_nodes_delimiter(list_in_progress, "_", TextType.ITALIC)
-
+    
     return list_in_progress
+
+def markdown_to_blocks(markdown):
+    cleaned_markdown = markdown.strip()
+    processing = cleaned_markdown.split("\n\n")
+    blocks = []
+    for block in processing:
+        block = block.strip()
+        if block:
+            blocks.append(block)
+    return blocks
