@@ -1,4 +1,5 @@
 import re
+from enum import Enum
 from textnode import TextNode, TextType
 
 def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: TextType):
@@ -119,3 +120,36 @@ def markdown_to_blocks(markdown):
         if block:
             blocks.append(block)
     return blocks
+
+class BlockType(Enum):
+    PARA = "paragraph"
+    HEAD = "heading"
+    CODE = "code"
+    QUOTE = "quote"
+    ULIST = "unordered list"
+    OLIST = "ordered list"
+
+def block_to_block_type(block):
+    lines = block.split("\n")
+    if block.startswith(("# ", "## ", "### ", "#### ", "##### ", "###### ",)):
+        return BlockType.HEAD
+    if len(lines) > 1 and lines[0].startswith("```") and lines[-1].endswith("```"):
+        return BlockType.CODE
+    if block.startswith(">"):
+        for line in lines:
+            if not line.startswith(">"):
+                return BlockType.PARA
+        return BlockType.QUOTE
+    if block.startswith("- "):
+        for line in lines:
+            if not line.startswith("- "):
+                return BlockType.PARA
+        return BlockType.ULIST
+    if block.startswith("1."):
+        i = 1
+        for line in lines:
+            if not line.startswith(f"{i}."):
+                return BlockType.PARA
+            i += 1
+        return BlockType.OLIST
+    return BlockType.PARA
