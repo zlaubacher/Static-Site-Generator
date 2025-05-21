@@ -1,7 +1,14 @@
-from textnode import TextType, TextNode
+import os
+import shutil
+
+
+directory_path_static = "./static"
+directory_path_public = "./public"
 
 def main():
-    text_node = TextNode("Don't Believe Ondore's Lies", TextType.ITALIC, url="https://youtu.be/abyKE9sZ6qc?si=pSvP52858y9-TmXS")
-    print(text_node)
+    print("Deleting public directory...")
+    if os.path.exists(directory_path_public):
+        shutil.rmtree(directory_path_public)
+    
 
 main()

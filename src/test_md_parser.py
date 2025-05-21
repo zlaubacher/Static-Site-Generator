@@ -232,5 +232,7 @@ class TestBlockToBlockType(unittest.TestCase):
         block = "paragraph"
         self.assertEqual(block_to_block_type(block), BlockType.PARA)
 
+
+
 if __name__ == "__main__":
     unittest.main()
