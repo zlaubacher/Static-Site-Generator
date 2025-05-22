@@ -2,7 +2,7 @@ import os
 import shutil
 
 def copy_files_recursive(source_directory_path, destination_directory_path):
-    if not destination_directory_path:
+    if not os.path.exists(destination_directory_path):
         os.mkdir(destination_directory_path)
     
     for filename in os.listdir(source_directory_path):
